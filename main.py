@@ -44,7 +44,7 @@ def get_proe():
   proe = requests.get("http://yijuzhan.com/api/word.php?m=json")
   if proe.status_code != 200:
     return get_proe()
-  re = proe.json()['content']+proe.json()['source']
+  re = proe.json()['content']
   return re
 
 def get_random_color():
