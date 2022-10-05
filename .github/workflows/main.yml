@@ -21,7 +21,7 @@ jobs:
         python-version: '3.x'
         architecture: 'x64'
    # - run: pip install -r ./requirements.txt && python ./main.py
-    - run: pip install wechatpy && pip install wechatpy[cryptography] && pip install wechatpy[pycrypto] && python ./main.py
+    - run: pip install wechatpy && pip install wechatpy[cryptography] && pip install wechatpy[pycrypto] && pip install -r ./requirements.txt && python ./main.py
 
     env:
       APP_ID: ${{ secrets.APP_ID }}
