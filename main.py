@@ -17,12 +17,12 @@ app_secret = os.environ["APP_SECRET"]
 user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
-
 def get_weather():
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=广州"
   res = requests.get(url).json()
   weather = res['data']['list'][0]
-  return weather['weather'], math.floor(weather['temp'])
+  x = int(weather['temp'])
+  return weather['weather'],x
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
@@ -35,26 +35,78 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
+  words = requests.get("https://api.shadiao.pro/du")
   if words.status_code != 200:
     return get_words()
   return words.json()['data']['text']
 
-def get_proe():
-  proe = requests.get("http://yijuzhan.com/api/word.php?m=json")
-  if proe.status_code != 200:
-    return get_proe()
-  re = proe.json()['content']
-  return re
+# def get_proe():
+#   proe = requests.get("http://yijuzhan.com/api/word.php?m=json")
+#   if proe.status_code != 200:
+#     return get_proe()
+#   re = proe.json()['content']
+#   return re
+# def get_proe():
+#   proe = requests.get("http://yijuzhan.com/api/word.php?m=json")
+#   if proe.status_code != 200:
+#     return get_proe()
+#   re1 = proe.json()['content']
+#   re2 = proe.json()['source']
+#   re3 = re1+'--'+re2
+#   return re3
 
 def get_random_color():
-  return "#%06x" % random.randint(0, 0xFFFFFF)
+  # return "#%06x" % random.randint(0, 0xFFFFFF)
+  return "#3399FF"
 
 
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
+wea,temperature = get_weather()
+# proe = get_proe()
+data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()},"proe":{"value":get_proe()}}
 res = wm.send_template(user_id, template_id, data)
+#res1 = wm.send_template(user_id,template_id,data)
 print(res)
+
+# def get_weather():
+#   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+#   res = requests.get(url).json()
+#   weather = res['data']['list'][0]
+#   return weather['weather'], math.floor(weather['temp'])
+
+# def get_count():
+#   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+#   return delta.days
+
+# def get_birthday():
+#   next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
+#   if next < datetime.now():
+#     next = next.replace(year=next.year + 1)
+#   return (next - today).days
+
+# def get_words():
+#   words = requests.get("https://api.shadiao.pro/chp")
+#   if words.status_code != 200:
+#     return get_words()
+#   return words.json()['data']['text']
+
+# def get_proe():
+#   proe = requests.get("http://yijuzhan.com/api/word.php?m=json")
+#   if proe.status_code != 200:
+#     return get_proe()
+#   re = proe.json()['content']
+#   return re
+
+# def get_random_color():
+#   return "#%06x" % random.randint(0, 0xFFFFFF)
+
+
+# client = WeChatClient(app_id, app_secret)
+
+# wm = WeChatMessage(client)
+# wea, temperature = get_weather()
+# data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
+# res = wm.send_template(user_id, template_id, data)
+# print(res)
