@@ -8,13 +8,16 @@ import random
 
 today = datetime.now()
 start_date = os.environ['START_DATE']
+start_date1 = os.environ['START_DATE1']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']
+birthday1 = os.environ['BIRTHDAY1']
 
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
 user_id = os.environ["USER_ID"]
+user_id1 = os.environ["USER_ID1"]
 template_id = os.environ["TEMPLATE_ID"]
 
 def get_weather():
@@ -28,8 +31,18 @@ def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
   return delta.days
 
+def get_count1():
+  delta = today - datetime.strptime(start_date1, "%Y-%m-%d")
+  return delta.days
+
 def get_birthday():
   next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
+  if next < datetime.now():
+    next = next.replace(year=next.year + 1)
+  return (next - today).days
+
+def get_birthday1():
+  next = datetime.strptime(str(date.today().year) + "-" + birthday1, "%Y-%m-%d")
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
   return (next - today).days
@@ -66,9 +79,12 @@ wm = WeChatMessage(client)
 wea,temperature = get_weather()
 # proe = get_proe()
 data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
+data1 = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count1()},"birthday_left":{"value":get_birthday1()},"words":{"value":get_words(),"color":get_random_color()}}
+
 res = wm.send_template(user_id, template_id, data)
-#res1 = wm.send_template(user_id,template_id,data)
+res1 = wm.send_template(user_id1,template_id,data1)
 print(res)
+print(res1)
 
 # def get_weather():
 #   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
