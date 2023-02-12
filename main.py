@@ -84,8 +84,12 @@ def get_random_color_to_birthday():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea,temperature = get_weather()
-
+def get_wweathers():
+  wea='good'
+  tem=random.randint(12, 20)
+  
+#wea,temperature = get_weathers()
+get_weathers()
 next1 = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
 print(next1)
 print(datetime.now())
