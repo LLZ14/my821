@@ -89,7 +89,8 @@ def get_weathers():
   temperature=random.randint(12, 20)
   
 #wea,temperature = get_weathers()
-get_weathers()
+wea="晴"
+temperature=22
 next1 = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
 print(next1)
 print(datetime.now())
@@ -106,12 +107,12 @@ bday = (next1 - today).days
   #res1 = wm.send_template(user_id,template_id,data)
   #print(res1)
 #else:
- data = {"weather":{"value":'good'},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
- res = wm.send_template(user_id, template_id, data)
+# data = {"weather":{"value":'good'},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
+ #res = wm.send_template(user_id, template_id, data)
   #res1 = wm.send_template(user_id,template_id,data)
-  #data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
+data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(),"color":get_random_color()}}
   #data1 = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count1()},"birthday_left":{"value":get_birthday1()},"words":{"value":get_words(),"color":get_random_color()}}
-  #res = wm.send_template(user_id, template_id, data)
+res = wm.send_template(user_id, template_id, data)
   #res1 = wm.send_template(user_id1,template_id,data1)
 
 # proe = get_proe()
