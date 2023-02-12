@@ -84,7 +84,7 @@ def get_random_color_to_birthday():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-def get_wweathers():
+def get_weathers():
   wea='good'
   temperature=random.randint(12, 20)
   
