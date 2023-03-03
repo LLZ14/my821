@@ -1,7 +1,7 @@
 name: morning
 on:
   schedule:
-  - cron:  '0 23 * * *'
+  - cron:  '0 21 * * *'
   #- cron:  '0 12 * * *'
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: '3.x'
         architecture: 'x64'
-    - run: pip install -r ./requirements.txt && python ./main.py
+    - run: pip3 install -r ./requirements.txt && python ./main.py
 
     env:
       APP_ID: ${{ secrets.APP_ID }}
