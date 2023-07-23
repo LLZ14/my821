@@ -49,7 +49,7 @@ def get_birthday1():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://pyq.shadiao.pro/")
+  words = requests.get("https://api.shadiao.pro/pyq")
   if words.status_code != 200:
     return get_words()
   return words.json()['data']['text']
